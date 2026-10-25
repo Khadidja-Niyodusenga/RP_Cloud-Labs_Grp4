@@ -2,7 +2,7 @@
 
 # Project Overview
 
-RP-Cloud Labs is a platform proposed by Randa Polytechnic to provide students and lectures with browser-based access to learning tools without installing then on their personal computers.
+RP-Cloud Labs is a platform proposed by Rwanda Polytechnic to provide students and lectures with browser-based access to learning tools without installing then on their personal computers.
 
 # Tool-Session Service
 
