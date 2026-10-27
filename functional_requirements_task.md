@@ -1,56 +1,50 @@
-# Functional Requirements for RP-Cloud Labs
+# Mini System Requirements Specification (SRS)
 
-**Task:** Functional Requirements Specification
+## 1. Introduction
 
-## Overview
+### 1.1 Purpose
 
-Functional requirements define the specific behaviors, features, functions, and services that the **RP-Cloud Labs** system must perform. They detail what the system should do to allow students, lecturers, and system administrators to fulfill their practical lab activities effectively.
+This Mini System Requirements Specification (SRS) document provides a concise overview of the **RP-Cloud Labs** platform. It outlines the scope, overall system description, primary functional areas, non-functional expectations, and system interfaces required to support virtualized practical learning at Rwanda Coding Academy / RP institutions.
 
-## 1. User Authentication and Access Control (FR-1)
+### 1.2 Scope
 
-* **FR-1.1 Single Sign-On (SSO):** The system shall allow users (Students, Lecturers, and Admins) to log in using their institutional RP email credentials.
+RP-Cloud Labs is a web-based, cloud-hosted learning environment designed to provision, monitor, and assess computer science and networking practical lab sessions for students and instructors.
 
-* **FR-1.2 Role-Based Access Control (RBAC):** The platform shall restrict access based on user roles:
+## 2. Overall Description
 
-  * **Students:** View assigned labs, launch lab virtual environments, and submit lab work.
+### 2.1 Product Perspective
 
-  * **Lecturers:** Create labs, upload instructions, assign labs to student cohorts, and grade submissions.
+RP-Cloud Labs operates as a web-based portal integrated with underlying cloud infrastructure (VM containers / Kubernetes) and institutional single sign-on (SSO) systems.
 
-  * **Administrators:** Manage user accounts, configure cloud resources, and monitor overall system health.
+```
++-------------------------------------------------------------+
+|                     RP-Cloud Labs Portal                    |
++------------------------------+------------------------------+
+                               |
+       +-----------------------+-----------------------+
+       |                                               |
++------v----------------------+             +----------v----------+
+|  User Authentication & SSO  |             | Infrastructure (VMs)|
++-----------------------------+             +---------------------+
 
-* **FR-1.3 Password Recovery:** The system shall provide a secure self-service password reset mechanism via email validation.
+```
 
-## 2. Lab & Environment Management (FR-2)
+### 2.2 User Classes and Characteristics
 
-* **FR-2.1 Lab Creation:** Lecturers shall be able to create new practical lab modules, attach instruction guides (PDF/Markdown), set deadlines, and assign resource quotas.
+* **Students:** Access lab tasks, interact with terminal/GUI lab environments, and submit solutions.
 
-* **FR-2.2 Automated Provisioning:** The platform shall automatically spin up and configure virtual machine (VM) or containerized lab environments when a student launches a session.
+* **Lecturers:** Author lab content, set automated grading criteria, monitor progress, and review submissions.
 
-* **FR-2.3 Session Timer & Auto-Save:** The system shall display a session timer for timed labs and automatically save student progress state periodically.
+* **System Administrators:** Manage node clusters, configure resource limits, and maintain system availability.
 
-* **FR-2.4 Session Reset:** Students shall have the ability to reset their lab environment back to its initial default state if needed.
+## 3. Key System Features
 
-## 3. Student Submission and Automated Assessment (FR-3)
+### 3.1 Lab Environment Provisioning
 
-* **FR-3.1 Lab Submission:** Students shall be able to submit completed lab outputs, code files, or terminal command logs directly through the platform interface.
+* The system shall provision isolated virtual lab instances on demand when requested by a registered student.
 
-* **FR-3.2 Automated Grading:** The system shall execute pre-configured test scripts to evaluate student lab outputs automatically and generate immediate score feedback.
+* Environments shall reset cleanly upon explicit user command or session expiration.
 
-* **FR-3.3 Manual Grading & Feedback:** Lecturers shall have an interface to review automated scores, adjust marks manually, and leave written feedback for students.
+### 3.2 Automated Assessment Engine
 
-## 4. Monitoring & Analytics (FR-4)
-
-* **FR-4.1 Student Progress Dashboard:** Students shall have a personal dashboard showing completed labs, pending deadlines, and scores earned.
-
-* **FR-4.2 Instructor Analytics:** Lecturers shall be able to view overall class submission rates, score distributions, and time spent on labs by each student.
-
-* **FR-4.3 Resource Utilization Monitoring:** Administrators shall receive alerts when cloud infrastructure resources (RAM, CPU, storage) exceed defined capacity thresholds.
-
-## Summary Matrix
-
-| Requirement ID | Module Name | Target User | Priority | 
-| ----- | ----- | ----- | ----- | 
-| **FR-1** | Authentication & RBAC | All Users | High | 
-| **FR-2** | Lab Provisioning & Execution | Students / Lecturers | High | 
-| **FR-3** | Submission & Assessment | Students / Lecturers | High | 
-| **FR-4** | Analytics & Monitoring | Lecturers / Admins | Medium | 
+* The system shall run
