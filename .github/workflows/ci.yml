@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start database
+        run: docker compose up -d --wait db
+
+      - name: Run Flyway migrations (before build)
+        run: docker compose run --rm flyway
+
+      - name: Show applied migrations
+        run: docker compose run --rm flyway -url=jdbc:postgresql://db:5432/rpcloud -user=rpcloud -password=rpcloud info
+
+      - name: Build Docker image
+        run: docker compose build app
+
+      - name: docker compose up
+        run: docker compose up -d
+
+      - name: Health check
+        run: |
+          for i in $(seq 1 15); do
+            curl -fs http://localhost:3000/health && exit 0
+            sleep 2
+          done
+          docker compose logs
+          exit 1
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
